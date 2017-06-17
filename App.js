@@ -1,5 +1,4 @@
 import React from 'react';
-import Expo from 'expo';
 
 import { Font } from 'expo';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

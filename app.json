@@ -2,6 +2,15 @@
   "expo": {
     "sdkVersion": "17.0.0",
     "name": "Sortes Faustrolianae",
-    "icon": "./assets/icon-512.png"
+    "icon": "./assets/icon-512.png",
+    "android": {
+      "package": "fr.rhumbs.faustrollianae"
+    },
+    "slug": "sortes-faustrolianae",
+    "version": "0.1.1",
+    "loading": {
+      "hideExponentText": true,
+      "icon": "./assets/icon-512.png"
+    }
   }
 }
