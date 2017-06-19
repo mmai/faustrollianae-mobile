@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { StyleSheet, Text, View, ScrollView, TouchableWithoutFeedback, Easing, Animated } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Easing, Animated, Image } from 'react-native';
 
 import { Font } from 'expo';
 
-import { Card, Icon } from 'react-native-elements';
+import { Card, Icon, Button } from 'react-native-elements';
 
 import {randomQuoteId, randomQuote} from './patamancy';
 
@@ -60,23 +60,25 @@ export default class App extends React.Component {
   render() {
     let spin = this.state.spinValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg']
+        outputRange: ['360deg', '0deg']
       })
 
     return (
       <View style={styles.container}>
       <ScrollView>
       <View style={{ alignItems: 'center', justifyContent: 'center'}}>
-      <TouchableWithoutFeedback onPress={this.updateQuote}>
-      <Animated.View style={{transform: [{rotate: spin}]}} >
-          <Icon iconStyle={styles.button} reverse raised type="material-community" name="dice-3" size={42} color="gray" />
-        </Animated.View>
-      </TouchableWithoutFeedback>
+          <Icon iconStyle={styles.button} reverse raised type="material-community" name="dice-3" size={42} color="gray"  onPress={this.updateQuote} />
       </View>
       {
         this.state.fontLoaded ? (
           this.state.showIntroduction ?  (<Introduction />) : 
-          this.state.showCard  ? ( <QuoteCard quote={this.state.quote} />) : null
+          this.state.showCard  ? ( <QuoteCard quote={this.state.quote} />) : (
+            <Animated.View style={{transform: [{rotate: spin}]}} >
+            <View style={{padding:20}}>
+              <Image style={{ width:300, height:300}} source={require('./assets/black-spiral-lollipop-600.png')} />
+              </View>
+            </Animated.View>
+          ) 
         ) : null
       }
       </ScrollView>
@@ -89,10 +91,10 @@ class Introduction extends React.Component {
   render(){
     return (
         <View style={styles.introduction}>
-          <Text style={styles.introductionText}></Text>
-          <Text style={styles.introductionText}>"Tout est dans Faustroll"</Text>
-          <Text style={styles.introductionText}>Boris Vian</Text>
-          <Text style={styles.introductionText}></Text>
+          <View style={{ paddingTop: 50 }}>
+            <Text style={{ fontSize: 26, fontFamily: 'lora-regular'}}>« Tout est dans Faustroll »</Text>
+            <Text style={{ fontSize: 20, fontFamily: 'lora-italic'}}>Boris Vian</Text>
+          </View>
         </View>
         )
   }
@@ -128,12 +130,10 @@ const styles = StyleSheet.create({
   },
   introduction: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  introductionText: {
-    fontSize: 16, 
   },
   card: {
     elevation: 5,
@@ -146,22 +146,4 @@ const styles = StyleSheet.create({
     fontSize: 13, 
   }
 });
-
-//Not used
-class Quote extends React.Component {
-    render() {
-    return  (
-      <Animated.View style={{transform: [{rotate: this.props.spin}]}} >
-        <View style={{ flexDirection: 'column', flex: 1, justifyContent: 'center', padding: 20 }}>
-          <Text style={{ fontFamily: 'lora-regular', fontSize: 18 }}> {this.props.quote.quote}</Text>
-        </View>
-        <View style={{ paddingRight: 20, paddingLeft: 20, backgroundColor: '#fff' }}>
-          <Text style={{ fontFamily: 'lora-regular', fontSize: 13 }}>Alfred Jarry</Text>
-          <Text style={{ fontFamily: 'lora-italic', fontSize: 13 }}>{this.props.quote.chapter.join('\n')}</Text>
-          <Text style={{ fontSize: 13 }}>-- {this.props.quote.position/1000}% --</Text>
-        </View>
-      </Animated.View>
-    )
-   }
- }
 
