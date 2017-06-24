@@ -1,3 +1,3 @@
-# Sortes Faustrolianae
+# Sortes Faustrollianae
 
 Android mobile application
