@@ -72,16 +72,21 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
       <ScrollView>
-      <View style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}>
-          <Button title="Explorer le clinamen" raised size={42} onPress={this.updateQuote} />
-          {/*<Icon iconStyle={styles.button} raised type="material-community" name="dice-3" size={42} color="gray"  onPress={this.updateQuote} /> */} 
-      </View>
+
       {
         this.state.fontLoaded ? (
           this.state.showIntroduction ?  (<Introduction />) : 
-          this.state.showCard  ? ( <QuoteCard quote={this.state.quote}/>) : null 
+          this.state.showCard  ? ( <QuoteCard quote={this.state.quote}/>) : null
         ) : null
       }
+
+            {
+                   ( this.state.showCard || this.state.showIntroduction)? (
+            <View style={{ alignItems: 'center', justifyContent: 'center', margin: 20 }}>
+                      <Button title="Explorer le clinamen" raised size={42} onPress={this.updateQuote} />
+                      {/*<Icon iconStyle={styles.button} raised type="material-community" name="dice-3" size={42} color="gray"  onPress={this.updateQuote} /> */}
+                  </View>) :null
+                  }
       </ScrollView>
 
       {
@@ -93,6 +98,8 @@ export default class App extends React.Component {
           </Animated.View>
         )
       }
+
+
 
       </View>
     );
